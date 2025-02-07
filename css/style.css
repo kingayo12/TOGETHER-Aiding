@@ -4633,6 +4633,14 @@ textarea.form-control {
     max-width: 95%;
     max-height: 70vh;
   }
+
+  .sponsors-slider {
+    gap: 10px;
+  }
+
+  .sponsor-item img {
+    height: 60px; /* Adjust height as needed */
+  }
 }
 /* @keyframes scroll {
   from {
