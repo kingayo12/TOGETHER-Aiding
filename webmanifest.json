@@ -1,0 +1,21 @@
+{
+  "name": "Together - Aiding Aged and Teenage Mothers",
+  "short_name": "Together aiding",
+  "description": "TOGETHER Aiding Aged AND TEENAGE MOTHERS Foundation is dedicated to supporting teenage mothers and elderly women with healthcare, education, shelter, and empowerment programs. Join us today!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ff5722",
+  "icons": [
+    {
+      "src": "https://togetheraiding.com//images/logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://togetheraiding.com//images/logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
