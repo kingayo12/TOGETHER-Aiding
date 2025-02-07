@@ -6,7 +6,7 @@
  */
 :root {
   --blue: #007bff;
-  --indigo: #6610f2;
+  --indigo: #6f42c1;
   --purple: #6f42c1;
   --pink: #e83e8c;
   --red: #dc3545;
@@ -3635,7 +3635,7 @@ textarea.form-control {
 }
 
 .heading-section h2 {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 800;
   color: var(--indigo);
   line-height: 1.3;
