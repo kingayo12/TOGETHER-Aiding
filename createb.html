@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Create Blog Post</title>
+    <style>
+        /* Basic styling for the form */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            /* Style for the success/error message */
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            /* Light green */
+            color: #155724;
+            /* Dark green */
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            /* Light red */
+            color: #721c24;
+            /* Dark red */
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Create New Blog Post</h1>
+
+    <form id="blogForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required>
+
+        <label for="description">Short Description:</label>
+        <textarea id="description" required></textarea>
+
+        <label for="content">Content (Optional - For future single blog page):</label>
+        <textarea id="content"></textarea>
+
+        <label for="imageURL">Image URL:</label>
+        <input type="text" id="imageURL">
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" value="admin" required>
+
+        <button type="submit">Submit</button>
+
+        <div id="message"></div>
+    </form>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            collection,
+            addDoc,
+            getFirestore,
+            serverTimestamp,
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSkqov9vc9QU4H_lue4cnoIxtTeAwsiZE",
+            authDomain: "blogpost-26dcb.firebaseapp.com",
+            projectId: "blogpost-26dcb",
+            storageBucket: "blogpost-26dcb.firebasestorage.app",
+            messagingSenderId: "557297913730",
+            appId: "1:557297913730:web:4e2345a590760ee96a899b",
+            measurementId: "G-WT82CB3Y4D",
+        };
+
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const blogForm = document.getElementById("blogForm");
+        const messageDiv = document.getElementById("message");
+
+        blogForm.addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent form from reloading the page
+
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const content = document.getElementById("content").value; // Get content
+            const imageURL = document.getElementById("imageURL").value;
+            const author = document.getElementById("author").value;
+
+            try {
+                await addDoc(collection(db, "blogs"), {
+                    title: title,
+                    description: description,
+                    content: content,  // Include content in the document
+                    imageURL: imageURL,
+                    author: author,
+                    date: serverTimestamp(), // Use serverTimestamp for accurate time
+                    commentsCount: 0, // Initial comment count
+                });
+
+                // Clear the form
+                blogForm.reset();
+                showMessage("Blog post created successfully!", "success");
+
+            } catch (error) {
+                console.error("Error adding blog post:", error);
+                showMessage("Error creating blog post. Please try again.", "error");
+            }
+        });
+
+        function showMessage(msg, type) {
+            messageDiv.textContent = msg;
+            messageDiv.className = type; // Set class for styling
+        }
+
+    </script>
+
+</body>
+
+</html>

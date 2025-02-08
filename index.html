@@ -27,6 +27,8 @@
 	<link rel="stylesheet" href="css/magnific-popup.css">
 	<link rel="shortcut icon" href="https://togetheraiding.com//images/logo2.jpg" type="image/x-icon">
 	<link rel="apple-touch-icon" href="https://togetheraiding.com//images/logo.png">
+	<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
 
 
 	<link rel="stylesheet" href="css/bootstrap-datepicker.css">
@@ -34,6 +36,7 @@
 
 	<link rel="stylesheet" href="css/flaticon.css">
 	<link rel="stylesheet" href="css/style.css">
+	<script type="module" src="./js/firebase-config.js"></script>
 </head>
 
 <body>
@@ -701,81 +704,8 @@
 					<h2>Latest news from our blog</h2>
 				</div>
 			</div>
-			<div class="row d-flex">
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="blog-entry align-self-stretch">
-						<a href="blog-single.html" class="block-20" style="background-image: url('images/ageism.png');">
-						</a>
-						<div class="text p-4">
-							<div class="meta mb-2">
-								<div><a href="#">January 12, 2025</a></div>
-								<div><a href="#">Admin</a></div>
-								<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-							</div>
-							<h3 class="heading"><a href="#">Providing Shelter for the Homeless Elderly</a></h3>
-							<p>Learn how our initiative is providing warmth and dignity to elderly individuals abandoned
-								by their families.
-							</p>
-							<p><a href="#" class="btn btn-secondary">Read more</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="blog-entry align-self-stretch">
-						<a href="blog-single.html" class="block-20" style="background-image: url('images/tp.png');">
-						</a>
-						<div class="text p-4">
-							<div class="meta mb-2">
-								<div><a href="#">January 18, 2025</a></div>
-								<div><a href="#">Admin</a></div>
-								<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-							</div>
-							<h3 class="heading"><a href="#">Empowering Teenage Mothers Through Education </a></h3>
-							<p>We are supporting young mothers with scholarships, vocational training, and mentorship
-								programs.
-							</p>
-							<p><a href="#" class="btn btn-secondary">Read more</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="blog-entry align-self-stretch">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('images/image_3.jpg');">
-						</a>
-						<div class="text p-4">
-							<div class="meta mb-2">
-								<div><a href="#">January 23, 2025</a></div>
-								<div><a href="#">Admin</a></div>
-								<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-							</div>
-							<h3 class="heading"><a href="#">Supporting Our Cause</a></h3>
-							<p>Find out the different ways you can contribute to changing lives in our community.
-							</p>
-							<p><a href="#" class="btn btn-secondary">Read more</a></p>
-						</div>
-					</div>
-				</div>
-				<div class="col-md-6 col-lg-3 d-flex ftco-animate">
-					<div class="blog-entry align-self-stretch">
-						<a href="blog-single.html" class="block-20"
-							style="background-image: url('images/image_4.jpg');">
-						</a>
-						<div class="text p-4">
-							<div class="meta mb-2">
-								<div><a href="#">January 30, 2025</a></div>
-								<div><a href="#">Admin</a></div>
-								<div><a href="#" class="meta-chat"><span class="fa fa-comment"></span> 3</a></div>
-							</div>
-							<h3 class="heading"><a href="#">Providing Essential Support for Elderly & Teenage
-									Mothers</a></h3>
-							<p>Many elderly individuals and teenage mothers struggle with access to basic needs like
-								food... </p>
-							<p><a href="#" class="btn btn-secondary">Learn More</a></p>
-						</div>
-
-					</div>
-				</div>
+			<div class="row d-flex" id="blog-container">
+				<!-- Firebase blog posts will load here -->
 			</div>
 		</div>
 	</section>
