@@ -4037,7 +4037,7 @@ textarea.form-control {
 }
 .block-27 ul li.active a,
 .block-27 ul li.active span {
-  background: #eec857;
+  background: var(--indigo);
   color: #fff;
   border: 1px solid transparent;
 }
@@ -4650,3 +4650,28 @@ textarea.form-control {
     transform: translateX(-100%);
   }
 } */
+
+.bio {
+  height: 300px;
+}
+
+.bio img {
+  height: 100%;
+}
+
+.no-fixed {
+  position: relative !important;
+  top: 0 !important;
+}
+
+.pagination li a {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  color: var(--indigo);
+}
+
+.pagination li a:hover {
+  background: var(--indigo);
+  color: #fff;
+}

@@ -14,11 +14,16 @@
 <url>
   <loc>https://togetheraiding.com/about</loc>
   <lastmod>2025-02-08T12:48:28+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.8</priority>
 </url>
 <url>
   <loc>https://togetheraiding.com/gallery</loc>
   <lastmod>2025-02-08T12:48:28+00:00</lastmod>
-  <priority>0.80</priority>
+  <priority>0.70</priority>
+</url>
+<url>
+  <loc>https://togetheraiding.com/blogs</loc>
+  <lastmod>2025-02-08T12:48:28+00:00</lastmod>
+  <priority>0.60</priority>
 </url>
 </urlset>

@@ -2,8 +2,35 @@
 <html>
 
 <head>
-    <title>Create Blog Post</title>
+    <meta charset="utf-8">
+    <title>Create - blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="shortcut icon" href="https://togetheraiding.com//images/logo2.jpg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://togetheraiding.com/images/logo.png">
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+    <link rel="stylesheet" href="../../../stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="css/animate.css">
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+
+
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
     <style>
+        body h1 {
+            text-align: center;
+        }
+
         /* Basic styling for the form */
         form {
             max-width: 600px;
@@ -23,6 +50,19 @@
             padding: 8px;
             margin-bottom: 10px;
             box-sizing: border-box;
+            outline: none;
+            border-style: none;
+            border-bottom: 2px solid #7f7f7f;
+            transition: all 400ms ease-in-out;
+        }
+
+        input:hover,
+        input:focus,
+        textarea:hover,
+        textarea:focus {
+            border-color: #005eff;
+            background: linear-gradient(to bottom, #fff, #005eff0c);
+
         }
 
         button {
@@ -60,6 +100,36 @@
 
 <body>
 
+    <nav class="navbar navbar-expand-lg no-fixed navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="./images/logo.png" alt="" loading="lazy">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+                aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span>
+                <div class="lines_wrap">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+
+            </button>
+
+            <div class="collapse navbar-collapse" id="ftco-nav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+                    <li class="nav-item"><a href="about.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="gallery.html" class="nav-link">Gallery</a></li>
+
+                    <li class="nav-item"><a href="blog.html" class="nav-link">Blog</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                    <li class="nav-item cta"><a href="#" class="nav-link">Donate</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <h1>Create New Blog Post</h1>
 
     <form id="blogForm">
@@ -69,14 +139,29 @@
         <label for="description">Short Description:</label>
         <textarea id="description" required></textarea>
 
-        <label for="content">Content (Optional - For future single blog page):</label>
+        <label for="content">Content:</label>
         <textarea id="content"></textarea>
 
         <label for="imageURL">Image URL:</label>
-        <input type="text" id="imageURL">
+        <input type="text" id="imageURL" value="images/">
+
+        <label for="subheading">Subheading:</label>
+        <input type="text" id="subheading">
+
+        <label for="subImageUrl">Sub Image URL:</label>
+        <input type="text" id="subImageUrl" value="images/">
+
+        <label for="subContent">Sub Content:</label>
+        <textarea id="subContent"></textarea>
 
         <label for="author">Author:</label>
         <input type="text" id="author" value="admin" required>
+
+        <label for="authorImage">Author Image URL:</label>
+        <input type="text" id="authorImage" value="images/team-1.jpg">
+
+        <label for="authorBio">Author Bio:</label>
+        <textarea id="authorBio"></textarea>
 
         <button type="submit">Submit</button>
 
@@ -113,19 +198,29 @@
 
             const title = document.getElementById("title").value;
             const description = document.getElementById("description").value;
-            const content = document.getElementById("content").value; // Get content
+            const content = document.getElementById("content").value;
             const imageURL = document.getElementById("imageURL").value;
+            const subheading = document.getElementById("subheading").value;
+            const subImageUrl = document.getElementById("subImageUrl").value;
+            const subContent = document.getElementById("subContent").value;
             const author = document.getElementById("author").value;
+            const authorImage = document.getElementById("authorImage").value;
+            const authorBio = document.getElementById("authorBio").value;
 
             try {
                 await addDoc(collection(db, "blogs"), {
                     title: title,
                     description: description,
-                    content: content,  // Include content in the document
+                    content: content,
                     imageURL: imageURL,
+                    subheading: subheading,
+                    subImageUrl: subImageUrl,
+                    subContent: subContent,
                     author: author,
-                    date: serverTimestamp(), // Use serverTimestamp for accurate time
-                    commentsCount: 0, // Initial comment count
+                    authorImage: authorImage,
+                    authorBio: authorBio,
+                    date: serverTimestamp(),
+                    commentsCount: 0,
                 });
 
                 // Clear the form

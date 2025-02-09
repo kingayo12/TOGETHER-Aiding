@@ -3,6 +3,11 @@ import {
   collection,
   getDocs,
   getFirestore,
+  doc,
+  getDoc,
+  query,
+  orderBy,
+  limit,
 } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 // Your web app's Firebase configuration
@@ -19,46 +24,6 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
-
-function timeSince(date) {
-  if (!(date instanceof Date)) {
-    // Convert Firestore Timestamp to JavaScript Date
-    date = new Date(date.toDate());
-  }
-
-  const now = new Date();
-  const seconds = Math.floor((now - date) / 1000);
-  let interval = Math.floor(seconds / 31536000);
-
-  if (interval >= 1) {
-    const months = Math.floor((seconds % 31536000) / 2592000);
-    return `${interval} yr${interval > 1 ? "s" : ""} ${
-      months ? months + " month" + (months > 1 ? "s" : "") : ""
-    }`;
-  }
-
-  interval = Math.floor(seconds / 2592000);
-  if (interval >= 1) {
-    return date.toLocaleString("en-US", { month: "long" }); // Returns "January", "February", etc.
-  }
-
-  interval = Math.floor(seconds / 86400);
-  if (interval >= 1) {
-    return interval + " day" + (interval > 1 ? "s" : "");
-  }
-
-  interval = Math.floor(seconds / 3600);
-  if (interval >= 1) {
-    return interval + " hr" + (interval > 1 ? "s" : "");
-  }
-
-  interval = Math.floor(seconds / 60);
-  if (interval >= 1) {
-    return interval + " min" + (interval > 1 ? "s" : "");
-  }
-
-  return Math.floor(seconds) + " sec" + (seconds > 1 ? "s" : "");
-}
 
 function formatDate(date) {
   if (!(date instanceof Date)) {
@@ -81,7 +46,8 @@ document.addEventListener("DOMContentLoaded", async function () {
   const blogContainer = document.getElementById("blog-container");
 
   try {
-    const querySnapshot = await getDocs(collection(db, "blogs"));
+    const q = query(collection(db, "blogs"), orderBy("date", "desc"), limit(4));
+    const querySnapshot = await getDocs(q);
     let blogHTML = "";
 
     querySnapshot.forEach((doc) => {
