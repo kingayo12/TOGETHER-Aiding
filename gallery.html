@@ -118,7 +118,7 @@
                 </div>
             </div>
 
-            <div class="gallery-grid_p">
+            <!-- <div class="gallery-grid_p" >
                 <div class="gallery-item_p tall"><img src="./images/gallery1.jpg" alt="Gallery Image 1"
                         onclick="openLightbox(0)"></div>
                 <div class="gallery-item_p wide"><img src="./images/gallery2.jpg" alt="Gallery Image 2"
@@ -135,7 +135,9 @@
                         onclick="openLightbox(6)"></div>
                 <div class="gallery-item_p"><img src="./images/gallery8.jpg" alt="Gallery Image 8"
                         onclick="openLightbox(7)"></div>
-            </div>
+            </div> -->
+            <!-- <div class="gallery-grid" id="gallery"></div> -->
+            <div class="gallery-grid_p" id="gallery_p"></div>
         </div>
     </section>
 
@@ -145,6 +147,7 @@
         <a class="prev" onclick="changeImage(-1)">&#10094;</a>
         <a class="next" onclick="changeImage(1)">&#10095;</a>
     </div>
+
 
 
     <footer class="footer">
@@ -262,16 +265,45 @@
 
 
     <script>
-        let currentIndex = 0;
-        const images = [
-            "./images/gallery1.jpg", "./images/gallery2.jpg", "./images/gallery3.jpg", "./images/gallery4.jpg",
-            "./images/gallery5.jpg", "./images/gallery6.jpg", "./images/gallery7.jpg", "./images/gallery8.jpg"
-        ];
+        const imageFolder = "images/gallery/"; // Folder where images are stored
+        const totalImages = 14; // Total number of images in the folder
+        // const maxImages = 8; // Maximum number of images to display
+        const classes = ["wide", "tall", "", "", ""];
 
+        // Generate an array of image filenames assuming sequential numbering with brackets
+        let images = Array.from({ length: totalImages }, (_, i) => `${imageFolder}gallery (${i + 1}).jpg`);
+
+        document.addEventListener("DOMContentLoaded", function () {
+
+
+            // Shuffle and pick 8 random images
+            // images = images.sort(() => 0.5 - Math.random()).slice(0, maxImages);
+
+            const galleryPContainer = document.getElementById("gallery_p");
+
+
+            images.forEach((image, index) => {
+                const div = document.createElement("div");
+                div.classList.add("gallery-item_p");
+
+                const randomClass = classes[Math.floor(Math.random() * classes.length)];
+                if (randomClass) div.classList.add(randomClass);
+
+                const img = document.createElement("img");
+                img.src = image;
+                img.alt = `Gallery Image ${index + 1}`;
+                img.onclick = () => openLightbox(index);
+
+                div.appendChild(img);
+                galleryPContainer.appendChild(div);
+            });
+        });
+
+        let currentIndex = 0;
         function openLightbox(index) {
             currentIndex = index;
             document.getElementById("lightbox-img").src = images[currentIndex];
-            document.getElementById("lightbox").style.display = "block";
+            document.getElementById("lightbox").style.display = "flex";
         }
 
         function closeLightbox() {
