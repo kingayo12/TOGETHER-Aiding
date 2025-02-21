@@ -806,7 +806,7 @@
 						mothers through our programs.</p>
 				</div>
 			</div>
-			<div class="gallery-grid">
+			<!-- <div class="gallery-grid">
 				<div class="gallery-item">
 					<img src="images/gallery1.jpg" alt="Helping an Elderly Woman" loading="lazy">
 				</div>
@@ -831,7 +831,8 @@
 				<div class="gallery-item">
 					<img src="images/gallery8.jpg" alt="Teen Mothers with Their Babies" loading="lazy">
 				</div>
-			</div>
+			</div> -->
+			<div class="gallery-grid" id="gallery"></div>
 
 			<div class="row justify-content-center pb-5 mb-3">
 				<div class="col-md-7 heading-section text-center ftco-animate">
@@ -973,6 +974,36 @@
 	<!--End of Tawk.to Script-->
 
 	<script>
+
+		document.addEventListener("DOMContentLoaded", function () {
+			const imageFolder = "images/gallery/"; // Folder where images are stored
+			const totalImages = 14; // Total number of images in the folder
+			const maxImages = 8; // Maximum number of images to display
+
+			// Generate an array of image filenames assuming sequential numbering
+			let images = Array.from({ length: totalImages }, (_, i) => `${imageFolder}gallery (${i + 1}).jpg`);
+
+			// Shuffle and pick 8 random images
+			images = images.sort(() => 0.5 - Math.random()).slice(0, maxImages);
+
+			const galleryContainer = document.getElementById("gallery");
+
+			images.forEach(image => {
+				const div = document.createElement("div");
+				div.classList.add("gallery-item");
+
+				const img = document.createElement("img");
+				img.src = image;
+				img.alt = "Gallery Image";
+				img.loading = "lazy";
+
+				div.appendChild(img);
+				galleryContainer.appendChild(div);
+			});
+		});
+
+
+
 		document.addEventListener("DOMContentLoaded", function () {
 			document.querySelector(".appointment").addEventListener("submit", function (event) {
 				event.preventDefault(); // Prevent form submission
