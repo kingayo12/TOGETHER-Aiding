@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:200,300,400,500,600,700,800&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Create a Cause</title>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js"></script>
+
+    <link rel="stylesheet" href="css/owl.carousel.min.css">
+    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="shortcut icon" href="https://togetheraiding.com//images/logo2.jpg" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://togetheraiding.com//images/logo.png">
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            collection,
+            addDoc,
+            getFirestore
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBSkqov9vc9QU4H_lue4cnoIxtTeAwsiZE",
+            authDomain: "blogpost-26dcb.firebaseapp.com",
+            projectId: "blogpost-26dcb",
+            storageBucket: "blogpost-26dcb.firebasestorage.app",
+            messagingSenderId: "557297913730",
+            appId: "1:557297913730:web:4e2345a590760ee96a899b",
+            measurementId: "G-WT82CB3Y4D",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Function to handle form submission
+        async function submitCause(event) {
+            event.preventDefault(); // Prevent page reload
+
+            const title = document.getElementById("title").value;
+            const description = document.getElementById("description").value;
+            const goalAmount = parseFloat(document.getElementById("goalAmount").value);
+            const imageURL = document.getElementById("imageURL").value;
+
+            if (!title || !description || !goalAmount) {
+                alert("Please fill in all fields.");
+                return;
+            }
+
+            try {
+                const docRef = await addDoc(collection(db, "causes"), {
+                    title,
+                    description,
+                    goalAmount,
+                    currentAmount: 0, // Default to 0 when created
+                    imageURL,
+                    createdAt: new Date()
+                });
+
+                alert("Cause Created Successfully! ID: " + docRef.id);
+                document.getElementById("causeForm").reset(); // Clear form
+            } catch (error) {
+                console.error("Error adding cause:", error);
+                alert("Error creating cause.");
+            }
+        }
+
+        window.submitCause = submitCause; // Make function available globally
+    </script>
+
+    <style>
+        body h1 {
+            text-align: center;
+        }
+
+        /* Basic styling for the form */
+        form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            outline: none;
+            border-style: none;
+            border-bottom: 2px solid #7f7f7f;
+            transition: all 400ms ease-in-out;
+        }
+
+        input:hover,
+        input:focus,
+        textarea:hover,
+        textarea:focus {
+            border-color: #005eff;
+            background: linear-gradient(to bottom, #fff, #005eff0c);
+
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+
+        #message {
+            /* Style for the success/error message */
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .success {
+            background-color: #d4edda;
+            /* Light green */
+            color: #155724;
+            /* Dark green */
+            border: 1px solid #c3e6cb;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            /* Light red */
+            color: #721c24;
+            /* Dark red */
+            border: 1px solid #f5c6cb;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Create a Cause</h2>
+    <form id="causeForm">
+        <label for="title">Title:</label>
+        <input type="text" id="title" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea><br><br>
+
+        <label for="goalAmount">Goal Amount ($):</label>
+        <input type="number" id="goalAmount" required><br><br>
+
+        <label for="imageURL">Image URL:</label>
+        <input type="text" value="images/" id="imageURL"><br><br>
+
+        <button type="submit" onclick="submitCause(event)">Create Cause</button>
+    </form>
+
+</body>
+
+</html>
