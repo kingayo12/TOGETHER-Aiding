@@ -2464,7 +2464,8 @@ h5,
   color: #fff;
 }
 .ftco-navbar-light .navbar-nav > .nav-item.cta > a:hover {
-  background: var(--indigo);
+  border-color: var(--indigo);
+  background-color: transparent;
   border: 1px solid var(--indigo);
 }
 .ftco-navbar-light .navbar-nav > .nav-item.active > a {
