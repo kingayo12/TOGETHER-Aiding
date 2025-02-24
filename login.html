@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/login.css">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v6.0.0-beta3/css/all.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
+    <link rel="stylesheet" href="css/flaticon.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>NGO Dashboard - Login</title>
+</head>
+
+<body>
+    <div class="container_wrapper">
+        <div class="left slider">
+            <img id="slider-image" src="./images/gallery/gallery (1).jpg" alt="Slider Image">
+            <div class="overlay-bt"></div>
+        </div>
+        <div class="right">
+            <div class="login-container">
+                <h2>Login to Dashboard</h2>
+                <form id="loginForm">
+                    <div class="input-group">
+                        <i class="fas fa-envelope"></i>
+                        <input type="email" id="email" placeholder="Email">
+                        <small class="error-message"></small>
+                    </div>
+
+                    <div class="input-group">
+                        <i class="fas fa-lock"></i>
+                        <input type="password" id="password" placeholder="Password" minlength="6">
+                        <small class="error-message"></small>
+                    </div>
+
+                    <div class="options">
+                        <label>
+                            <input type="checkbox" id="rememberMe"> Remember Me
+                        </label>
+                        <a href="#" id="forgotPassword">Forgot Password?</a>
+                    </div>
+
+                    <button type="submit" id="loginButton">Login</button>
+                    <p id="message"></p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Image Slider
+        const images = ["gallery (1).jpg", "gallery (3).jpg", "gallery (4).jpg"];
+        let currentIndex = 0;
+
+        function changeImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            document.getElementById("slider-image").src = `./images/gallery/${images[currentIndex]}`;
+        }
+
+        setInterval(changeImage, 3000); // Change image every 3 seconds
+
+        // Select Elements
+        const emailInput = document.getElementById("email");
+        const passwordInput = document.getElementById("password");
+        const rememberMeCheckbox = document.getElementById("rememberMe");
+        const message = document.getElementById("message");
+        const loginButton = document.getElementById("loginButton");
+
+        // Load saved email if Remember Me was checked
+        window.onload = function () {
+            const savedEmail = localStorage.getItem("savedEmail");
+            if (savedEmail) {
+                emailInput.value = savedEmail;
+                rememberMeCheckbox.checked = true;
+            }
+        };
+
+        // Form Validation & Login
+        document.getElementById("loginForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            let isValid = true;
+
+            // Email Validation
+            if (!emailInput.value.trim()) {
+                showError(emailInput, "Email is required");
+                isValid = false;
+            } else if (!/\S+@\S+\.\S+/.test(emailInput.value)) {
+                showError(emailInput, "Invalid email format");
+                isValid = false;
+            } else {
+                clearError(emailInput);
+            }
+
+            // Password Validation
+            if (!passwordInput.value.trim()) {
+                showError(passwordInput, "Password is required");
+                isValid = false;
+            } else if (passwordInput.value.length < 6) {
+                showError(passwordInput, "Password must be at least 6 characters");
+                isValid = false;
+            } else {
+                clearError(passwordInput);
+            }
+
+            if (isValid) {
+                // Show loading state
+                loginButton.disabled = true;
+                loginButton.innerHTML = `<span class="spinner"></span> Logging in...`;
+
+                // Simulate login process
+                setTimeout(() => {
+                    message.textContent = "Login successful!";
+                    message.style.color = "green";
+
+                    // Store email if Remember Me is checked
+                    if (rememberMeCheckbox.checked) {
+                        localStorage.setItem("savedEmail", emailInput.value);
+                    } else {
+                        localStorage.removeItem("savedEmail"); // Clear email if unchecked
+                    }
+
+                    // Reset button after login
+                    loginButton.disabled = false;
+                    loginButton.innerHTML = "Login";
+
+                    // Redirect to dashboard (Modify this based on actual dashboard link)
+                    setTimeout(() => {
+                        window.location.href = "dashboard.html";
+                    }, 1000);
+                }, 2000);
+            }
+        });
+
+        // Show and Clear Error
+        function showError(input, message) {
+            const error = input.parentElement.querySelector(".error-message");
+            error.textContent = message;
+            error.style.color = "red";
+        }
+
+        function clearError(input) {
+            const error = input.parentElement.querySelector(".error-message");
+            error.textContent = "";
+        }
+    </script>
+</body>
+
+</html>
